@@ -1,0 +1,6 @@
+{
+    "name": "AWS Cost",
+    "render_readme": true,
+    "zip_release": true,
+    "filename": "aws_cost.zip"
+}
