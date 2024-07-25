@@ -12,6 +12,7 @@ import voluptuous as vol
 
 _LOGGER = logging.getLogger(__name__)
 
+
 @callback
 def configured_instance(hass):
     """Return a set of configured AWS Cost instances."""
@@ -23,11 +24,11 @@ class AWSCostConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     VERSION = 1
     CONNECTION_CLASS = config_entries.CONN_CLASS_CLOUD_POLL
-    
+
     def __init__(self):
         """Initialize the config flow."""
         pass
-    
+
     async def async_step_user(self, user_input=None):
         """Handle the initial step."""
         errors = {}
@@ -48,7 +49,7 @@ class AWSCostConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 vol.Required("aws_access_key_id"): str,
                 vol.Required("aws_secret_access_key"): str,
                 vol.Required("region_name"): vol.In(SUPPORTED_REGIONS),
-                vol.Required("update_frequency"): vol.In(UPDATE_FREQUENCY)
+                vol.Required("update_frequency"): vol.In(UPDATE_FREQUENCY),
             }
         )
 

@@ -11,8 +11,9 @@ from homeassistant.config_entries import ConfigEntry
 
 from .aws_cost import AWSCostExplorer
 from .const import DOMAIN
- 
+
 _LOGGER = logging.getLogger(__name__)
+
 
 class AWSCostDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching AWS Cost data from the AWS Cost Explorer API."""
@@ -24,11 +25,13 @@ class AWSCostDataUpdateCoordinator(DataUpdateCoordinator):
         aws_secret_access_key = config_entry.data["aws_secret_access_key"]
         region_name = config_entry.data["region_name"]
 
-        self.client = AWSCostExplorer(aws_access_key_id, aws_secret_access_key, region_name)
+        self.client = AWSCostExplorer(
+            aws_access_key_id, aws_secret_access_key, region_name
+        )
 
-        if config_entry.data["update_frequency"] == 'Every 6 hours':
+        if config_entry.data["update_frequency"] == "Every 6 hours":
             frequency = timedelta(hours=6)
-        elif config_entry.data["update_frequency"] == 'Every 12 hours':
+        elif config_entry.data["update_frequency"] == "Every 12 hours":
             frequency = timedelta(hours=12)
         else:
             frequency = timedelta(hours=24)
@@ -42,7 +45,7 @@ class AWSCostDataUpdateCoordinator(DataUpdateCoordinator):
 
     async def _async_update_data(self):
         """Fetch data from AWS Cost Explorer API."""
-        try: 
+        try:
             month_to_date = await self.hass.async_add_executor_job(
                 self.client.get_month_to_date_cost
             )
@@ -54,8 +57,11 @@ class AWSCostDataUpdateCoordinator(DataUpdateCoordinator):
             )
 
             _LOGGER.debug("Forecast: %s", forecast)
-            
-            return {"month_to_date": month_to_date[0], "forecast": forecast[0], "currency": month_to_date[1]}
+
+            return {
+                "month_to_date": month_to_date[0],
+                "forecast": forecast[0],
+                "currency": month_to_date[1],
+            }
         except Exception as err:
             raise UpdateFailed(f"Error fetching data: {err}") from err
-
