@@ -66,5 +66,4 @@ Once installed, go to `Settings > Devices & services > + Add integration > AWS C
 
     >"Cost Explorer refreshes your cost data at least once every 24 hours. However, this depends on your upstream data from your billing applications, and some data might be updated later than 24 hours."
 
-    Reference: [Analyzing your costs with AWS Cost Explorer
-](https://docs.aws.amazon.com/cost-management/latest/userguide/ce-what-is.html)
+    Reference: [Analyzing your costs with AWS Cost Explorer](https://docs.aws.amazon.com/cost-management/latest/userguide/ce-what-is.html)
