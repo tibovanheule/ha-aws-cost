@@ -45,7 +45,6 @@ class AWSCostConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         data_schema = vol.Schema(
             {
-                # vol.Required("account_name", default="Personal account"): str,
                 vol.Required("aws_access_key_id"): str,
                 vol.Required("aws_secret_access_key"): str,
                 vol.Required("region_name"): vol.In(SUPPORTED_REGIONS),

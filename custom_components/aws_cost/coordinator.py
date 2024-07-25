@@ -7,6 +7,7 @@ from datetime import timedelta
 
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from homeassistant.config_entries import ConfigEntry
 
 from .aws_cost import AWSCostExplorer
 from .const import DOMAIN

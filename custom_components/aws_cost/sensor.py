@@ -4,8 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from dataclasses import dataclass
-# from datetime import datetime
-from homeassistant.config_entries import ConfigEntry, ConfigEntryNotReady
+from homeassistant.config_entries import ConfigEntryNotReady
 
 import logging
 # from typing import Any
@@ -14,8 +13,7 @@ from homeassistant.components.sensor import (
     DOMAIN as SENSOR_DOMAIN,
     SensorDeviceClass,
     SensorEntity,
-    SensorEntityDescription,
-    SensorStateClass
+    SensorEntityDescription
 )
 
 from homeassistant.const import (
@@ -23,18 +21,13 @@ from homeassistant.const import (
     CURRENCY_EURO
 )
 
-from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import (
     DeviceEntryType, DeviceInfo
 )
-from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.typing import StateType
-from homeassistant.helpers.update_coordinator import (
-    CoordinatorEntity,
-    DataUpdateCoordinator
-)
 
-from .aws_cost import AWSCostExplorer
+from homeassistant.helpers.typing import StateType
+from homeassistant.helpers.update_coordinator import CoordinatorEntity
+
 from .const import DOMAIN
 from .coordinator import AWSCostDataUpdateCoordinator
 
@@ -43,7 +36,7 @@ _LOGGING = logging.getLogger(__name__)
 @dataclass(frozen=True)
 class AWSCostSensorEntityDescription(SensorEntityDescription):
     """Describes an AWS Cost Explorer sensor entity."""
-    state: Callable[[dict], Any] | None = None
+    state: Callable[[dict]] | None = None
 
 SENSORS: tuple[AWSCostSensorEntityDescription, ...] = (
     AWSCostSensorEntityDescription(

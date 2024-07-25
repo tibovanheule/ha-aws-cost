@@ -2,7 +2,7 @@
 
 DOMAIN = "aws_cost"
 
-# List is from https://docs.aws.amazon.com/general/latest/gr/cw_region.html
+# Regions from: https://docs.aws.amazon.com/general/latest/gr/cw_region.html
 SUPPORTED_REGIONS = [
     'us-east-1',
     'us-east-2',

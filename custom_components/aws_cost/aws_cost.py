@@ -1,7 +1,7 @@
+"""The Integration with AWS Cost Explorer API"""
+
 import boto3
-import asyncio
-import concurrent.futures
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 import logging
 import calendar
 
@@ -17,7 +17,7 @@ class AWSCostExplorer:
                                     region_name=region_name)
 
     def get_month_to_date_cost(self):
-        _LOGGER.debug("Preparing to fetch cost data using boto3 client.")
+        """Interacts with GetCostAndUsage operation from AWS Cost Explorer API"""
         try:
             start = str(date.today().replace(day=1))    
             end = str(date.today() + timedelta(days=1))
@@ -38,8 +38,6 @@ class AWSCostExplorer:
             amount = response['ResultsByTime'][0]['Total']['BlendedCost']['Amount']
             currency = response['ResultsByTime'][0]['Total']['BlendedCost']['Unit']
 
-            _LOGGER.debug("Costs: %s %s", amount, currency) 
-
             return amount, currency
 
         except Exception as e:
@@ -48,8 +46,7 @@ class AWSCostExplorer:
 
 
     def get_cost_forecast(self):
-        _LOGGER.debug("Preparing to fetch cost data using boto3 client.")
-
+        """Interacts with GetCostAndUsage operation from AWS Cost Explorer API"""
         try: 
             if date.today().day == calendar.monthrange(date.today().year, date.today().month)[1]: 
                 start = str(date.today().replace(day=-1))
@@ -71,7 +68,6 @@ class AWSCostExplorer:
             _LOGGER.debug("Received response from AWS Cost Explorer Forecast: %s", response)   
             amount = response['Total']['Amount']
             currency = response['Total']['Unit']    
-            _LOGGER.debug("Costs: %s %s", amount, currency) 
             
             return amount, currency
         except Exception as e:
