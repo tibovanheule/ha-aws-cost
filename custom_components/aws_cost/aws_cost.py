@@ -27,8 +27,17 @@ class AWSCostExplorer:
         """Interacts with GetCostAndUsage operation from AWS Cost Explorer API"""
         try:
             start = str(date.today().replace(day=1))
-            end = str(date.today() + timedelta(days=1))
+            
+            if (
+                date.today().day
+                == calendar.monthrange(date.today().year, date.today().month)[1]
+            ):
+                end = str(date.today())
+            else:
+                end = str(date.today() + timedelta(days=1))
 
+            _LOGGER.debug("######### Start: %s", start)
+            _LOGGER.debug("######### End: %s", end)
             response = self.client.get_cost_and_usage(
                 TimePeriod={"Start": start, "End": end},
                 Granularity="MONTHLY",
@@ -43,7 +52,7 @@ class AWSCostExplorer:
             return amount, currency
 
         except Exception as e:
-            _LOGGER.error("Error occurred while fetchung cost data: %s", e)
+            _LOGGER.error("Error occurred while fetching month to date cost data: %s", e)
 
     def get_cost_forecast(self):
         """Interacts with GetCostAndUsage operation from AWS Cost Explorer API"""
@@ -52,8 +61,7 @@ class AWSCostExplorer:
                 date.today().day
                 == calendar.monthrange(date.today().year, date.today().month)[1]
             ):
-                start = str(date.today().replace(day=-1))
-                _LOGGER.debug("Start: %s", start)
+                start = str(date.today() - timedelta(days=1))
             else:
                 start = str(date.today())
 
@@ -62,6 +70,9 @@ class AWSCostExplorer:
                     day=calendar.monthrange(date.today().year, date.today().month)[1]
                 )
             )
+
+            _LOGGER.debug("######### Start: %s", start)
+            _LOGGER.debug("######### End: %s", end)
 
             response = self.client.get_cost_forecast(
                 TimePeriod={"Start": start, "End": end},
@@ -77,4 +88,4 @@ class AWSCostExplorer:
 
             return amount, currency
         except Exception as e:
-            _LOGGER.error("Error occurred while fetchung cost data: %s", e)
+            _LOGGER.error("Error occurred while fetching forecast cost data: %s", e)
