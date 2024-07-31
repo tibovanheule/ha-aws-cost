@@ -27,7 +27,7 @@ class AWSCostExplorer:
         """Interacts with GetCostAndUsage operation from AWS Cost Explorer API"""
         try:
             start = str(date.today().replace(day=1))
-            
+
             if (
                 date.today().day
                 == calendar.monthrange(date.today().year, date.today().month)[1]
@@ -52,7 +52,9 @@ class AWSCostExplorer:
             return amount, currency
 
         except Exception as e:
-            _LOGGER.error("Error occurred while fetching month to date cost data: %s", e)
+            _LOGGER.error(
+                "Error occurred while fetching month to date cost data: %s", e
+            )
 
     def get_cost_forecast(self):
         """Interacts with GetCostAndUsage operation from AWS Cost Explorer API"""
