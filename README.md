@@ -40,7 +40,7 @@ First, install the custom integration using [HACS](https://hacs.xyz/).
 1. Add the integration using HACS
 2. Restart Home Assistant
 
-[![](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=diego7marques&repository=ha-aws-cost)
+[![](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=diego7marques&repository=ha-aws-cost&category=integration)
 
 ### Option 2: Manual installation
 
