@@ -38,6 +38,7 @@ class AWSCostExplorer:
 
             _LOGGER.debug("######### Start: %s", start)
             _LOGGER.debug("######### End: %s", end)
+
             response = self.client.get_cost_and_usage(
                 TimePeriod={"Start": start, "End": end},
                 Granularity="MONTHLY",

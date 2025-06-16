@@ -17,9 +17,7 @@ async def async_setup(hass, config):
 async def async_setup_entry(hass, config_entry):
     """Set up AWS Cost from a config entry."""
 
-    hass.async_create_task(
-        hass.config_entries.async_forward_entry_setup(config_entry, "sensor")
-    )
+    await hass.config_entries.async_forward_entry_setups(config_entry, [DOMAIN])
 
     return True
 
